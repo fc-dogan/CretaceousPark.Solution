@@ -13,15 +13,15 @@ namespace CretaceousClient.Models
     public int Age { get; set; }
     public string Gender { get; set; }
 
-    public static List<Animal> GetAnimals()
+    public static Animal GetDetails(int id)
     {
-      var apiCallTask = ApiHelper.GetAll();
+      var apiCallTask = ApiHelper.Get(id);
       var result = apiCallTask.Result;
 
-      JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
-      List<Animal> animalList = JsonConvert.DeserializeObject<List<Animal>>(jsonResponse.ToString());
+      JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
+      Animal animal = JsonConvert.DeserializeObject<Animal>(jsonResponse.ToString());
 
-      return animalList;
+      return animal;
     }
   }
 }
