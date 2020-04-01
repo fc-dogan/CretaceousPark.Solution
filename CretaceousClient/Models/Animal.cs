@@ -13,6 +13,17 @@ namespace CretaceousClient.Models
     public int Age { get; set; }
     public string Gender { get; set; }
 
+    public static List<Animal> GetAnimals()
+    {
+      var apiCallTask = ApiHelper.GetAll();
+      var result = apiCallTask.Result;
+
+      JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
+      List<Animal> animalList = JsonConvert.DeserializeObject<List<Animal>>(jsonResponse.ToString());
+
+      return animalList;
+    }
+
     public static Animal GetDetails(int id)
     {
       var apiCallTask = ApiHelper.Get(id);
